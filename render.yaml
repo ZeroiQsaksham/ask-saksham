@@ -1,0 +1,14 @@
+# One-click deploy on Render (https://render.com). Set GROQ_API_KEY in the dashboard.
+services:
+  - type: web
+    name: ask-saksham
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: AGENT_NAME
+        value: XYZ
+      - key: OWNER_NAME
+        value: Saksham
