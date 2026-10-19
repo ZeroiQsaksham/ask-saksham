@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Saksham | Portfolio</title>
+  <title>Saksham Pandey | Portfolio</title>
   <meta name="description" content="Saksham's portfolio with a personal AI agent you can ask anything about him." />
-  <link rel="stylesheet" href="/static/styles.css" />
+  <link rel="stylesheet" href="/static/styles.css?v=3" />
 </head>
 <body>
   <header class="nav">
@@ -21,8 +21,8 @@
   <main>
     <section class="hero">
       <p class="eyebrow">Hi, I'm</p>
-      <h1>Saksham</h1>
-      <p class="tagline">[Your one-line tagline, e.g. "ML &amp; Deep Learning enthusiast building AI products"]</p>
+      <h1>Saksham Pandey</h1>
+      <p class="tagline">B.Tech, IIT (ISM) Dhanbad · Data science, machine learning and AI applications.</p>
       <div class="hero-actions">
         <button class="btn primary" id="open-chat-hero">Ask my AI agent about me</button>
         <a class="btn" href="#projects">See projects</a>
@@ -31,14 +31,14 @@
 
     <section id="about" class="section">
       <h2>About</h2>
-      <p>[2-3 sentences about you. Keep this in sync with knowledge/about.md.]</p>
+      <p>I enjoy building complete ML systems: from training deep learning models on medical images to shipping an AI assistant that answers questions about me. Before that I worked as a market analyst intern using SQL and BigQuery. Outside of code I love animals, play badminton (General Championship gold medalist) and enjoy long drives.</p>
     </section>
 
     <section id="skills" class="section">
       <h2>Skills</h2>
       <ul class="chips">
-        <li>Python</li><li>C++</li><li>SQL</li><li>Deep Learning</li>
-        <li>LangChain</li><li>RAG</li><li>FastAPI</li><li>React</li>
+        <li>Python</li><li>SQL</li><li>PyTorch</li><li>scikit-learn</li><li>Deep Learning</li><li>Power BI</li>
+        <li>LangChain</li><li>RAG</li><li>FastAPI</li><li>JavaScript</li>
       </ul>
     </section>
 
@@ -47,46 +47,46 @@
       <div class="cards">
         <article class="card">
           <h3>Ask Saksham: personal AI agent</h3>
-          <p>RAG-based agent that answers questions about me using LangChain, ChromaDB, FastEmbed and Llama on Groq, with tool calling and guardrails.</p>
+          <p>RAG-based agent that answers questions about me using LangChain, ChromaDB, FastEmbed and an open-weight LLM on Groq, with tool calling and guardrails.</p>
           <a href="https://github.com/ZeroiQsaksham/ask-saksham" target="_blank" rel="noopener">GitHub</a>
         </article>
         <article class="card">
           <h3>Chest X-Ray Medical Diagnosis</h3>
-          <p>[Short description of the deep learning model and its results.]</p>
-          <a href="#" target="_blank" rel="noopener">GitHub</a>
+          <p>DenseNet-121 fine-tuned in PyTorch to detect 14 conditions on NIH ChestX-ray14, with patient-level splits, class-imbalance handling and Grad-CAM explainability.</p>
+          <a href="https://github.com/ZeroiQsaksham/chest-xray-densenet-pytorch" target="_blank" rel="noopener">GitHub</a>
         </article>
         <article class="card">
-          <h3>[Project 3]</h3>
-          <p>[Short description.]</p>
-          <a href="#" target="_blank" rel="noopener">GitHub</a>
+          <h3>Rock vs Mine Prediction</h3>
+          <p>Logistic regression on 208 sonar readings (60 features) reaching 78.6% test accuracy.</p>
+          <a href="https://github.com/ZeroiQsaksham/M.L-Project-" target="_blank" rel="noopener">GitHub</a>
         </article>
       </div>
     </section>
 
     <section id="contact" class="section">
       <h2>Contact</h2>
-      <p>Email: [your email] · <a href="#">LinkedIn</a> · <a href="#">GitHub</a></p>
+      <p><a href="https://www.linkedin.com/in/saksham-pandey-2b7826256/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/ZeroiQsaksham" target="_blank" rel="noopener">GitHub</a> · or leave me a message through the chat assistant.</p>
     </section>
   </main>
 
   <footer class="footer">Built with FastAPI, LangChain and a lot of curiosity.</footer>
 
   <!-- Chat widget -->
-  <button class="chat-launcher" id="chat-launcher" aria-label="Open chat">Ask <span class="agent-name">XYZ</span></button>
+  <button class="chat-launcher" id="chat-launcher" aria-label="Open chat">Ask <span class="agent-name">Saksham</span></button>
 
   <div class="chat" id="chat" hidden>
     <div class="chat-header">
       <div>
-        <strong class="agent-name">XYZ</strong>
-        <span class="chat-sub">Ask me anything about Saksham</span>
+        <strong class="agent-name">Saksham</strong>
+        <span class="chat-sub">AI version of me · ask me anything</span>
       </div>
       <button class="icon-btn" id="chat-close" aria-label="Close chat">&times;</button>
     </div>
     <div class="chat-body" id="chat-body"></div>
     <div class="suggestions" id="suggestions">
-      <button>What are his skills?</button>
-      <button>Tell me about his projects</button>
-      <button>How can I contact him?</button>
+      <button>What are your skills?</button>
+      <button>Tell me about your projects</button>
+      <button>How can I contact you?</button>
     </div>
     <form class="chat-form" id="chat-form">
       <input id="chat-input" type="text" maxlength="1000" placeholder="Type your question..." autocomplete="off" />
@@ -94,6 +94,6 @@
     </form>
   </div>
 
-  <script src="/static/app.js"></script>
+  <script src="/static/app.js?v=3"></script>
 </body>
 </html>

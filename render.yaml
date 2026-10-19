@@ -9,6 +9,6 @@ services:
       - key: GROQ_API_KEY
         sync: false
       - key: AGENT_NAME
-        value: XYZ
+        value: Saksham
       - key: OWNER_NAME
         value: Saksham

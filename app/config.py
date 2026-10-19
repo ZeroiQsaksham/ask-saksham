@@ -13,14 +13,14 @@ DATA_DIR = BASE_DIR / "data"
 STATIC_DIR = BASE_DIR / "static"
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
-GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 
-AGENT_NAME = os.getenv("AGENT_NAME", "XYZ")
+AGENT_NAME = os.getenv("AGENT_NAME", "Saksham")
 OWNER_NAME = os.getenv("OWNER_NAME", "Saksham")
 
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "BAAI/bge-small-en-v1.5")
 COLLECTION_NAME = "knowledge_base"
-TOP_K = int(os.getenv("TOP_K", "4"))
+TOP_K = int(os.getenv("TOP_K", "6"))
 
 # Chunking
 CHUNK_SIZE = 800

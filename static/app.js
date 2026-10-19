@@ -7,7 +7,7 @@ const suggestions = document.getElementById("suggestions");
 const launcher = document.getElementById("chat-launcher");
 
 const history = []; // conversation memory sent with each request
-let agentName = "XYZ";
+let agentName = "Saksham";
 let busy = false;
 
 fetch("/api/config")
@@ -22,7 +22,7 @@ function openChat() {
   chat.hidden = false;
   launcher.hidden = true;
   if (!body.children.length) {
-    addMessage("bot", `Hi! I'm ${agentName}, Saksham's AI assistant. Ask me about his skills, projects, education or how to reach him.`);
+    addMessage("bot", `Hi! I'm the AI version of ${agentName}. Ask me about my education, projects, skills, internship or how to reach me.`);
   }
   input.focus();
 }
@@ -34,10 +34,36 @@ launcher.addEventListener("click", openChat);
 document.getElementById("open-chat-hero").addEventListener("click", openChat);
 document.getElementById("chat-close").addEventListener("click", closeChat);
 
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+// Minimal, safe Markdown: text is HTML-escaped FIRST, then only bold, bullets and links are added.
+function renderMarkdown(text) {
+  const cleaned = text.replace(/【[^】]*】/g, "").replace(/\[source:[^\]]*\]/gi, "");
+  return escapeHtml(cleaned)
+    .split("\n")
+    .map((line) => {
+      let l = line.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+      l = l.replace(/https?:\/\/[^\s<)]+/g, (url) => {
+        const trail = url.match(/[.,;:!?]+$/)?.[0] || "";
+        const href = url.slice(0, url.length - trail.length);
+        return `<a href="${href}" target="_blank" rel="noopener">${href}</a>${trail}`;
+      });
+      return /^\s*[-*•] /.test(line) ? "• " + l.replace(/^\s*[-*•] /, "") : l;
+    })
+    .join("<br>");
+}
+
+function setMessage(el, role, text) {
+  if (role === "bot") el.innerHTML = renderMarkdown(text);
+  else el.textContent = text; // user text is never interpreted as HTML
+}
+
 function addMessage(role, text) {
   const el = document.createElement("div");
   el.className = `msg ${role}`;
-  el.textContent = text; // textContent, never innerHTML: no HTML injection from model output
+  setMessage(el, role, text);
   body.appendChild(el);
   body.scrollTop = body.scrollHeight;
   return el;
@@ -70,12 +96,12 @@ async function ask(question) {
       const { done, value } = await reader.read();
       if (done) break;
       answer += decoder.decode(value, { stream: true });
-      botEl.textContent = answer;
+      setMessage(botEl, "bot", answer);
       body.scrollTop = body.scrollHeight;
     }
   } catch (e) {
     answer = typeof e.message === "string" ? e.message : "Something went wrong. Please try again.";
-    botEl.textContent = answer;
+    setMessage(botEl, "bot", answer);
   } finally {
     botEl.classList.remove("typing");
     history.push({ role: "user", content: question }, { role: "assistant", content: answer });

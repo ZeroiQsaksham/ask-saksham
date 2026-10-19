@@ -1,17 +1,17 @@
 [
-  {"question": "Where does Saksham study?", "expected_source": "education.md", "expected_keywords": []},
-  {"question": "What degree is he pursuing?", "expected_source": "education.md", "expected_keywords": []},
+  {"question": "Where does Saksham study?", "expected_source": "education.md", "expected_keywords": ["IIT"]},
+  {"question": "What were his class 12 marks?", "expected_source": "education.md", "expected_keywords": ["78"]},
   {"question": "Which programming languages does Saksham know?", "expected_source": "skills.md", "expected_keywords": ["Python"]},
-  {"question": "Does he know deep learning frameworks?", "expected_source": "skills.md", "expected_keywords": []},
-  {"question": "Tell me about the chest X-ray project", "expected_source": "projects.md", "expected_keywords": ["X-Ray"]},
+  {"question": "Does he know deep learning frameworks?", "expected_source": "skills.md", "expected_keywords": ["PyTorch"]},
+  {"question": "Tell me about the chest X-ray project", "expected_source": "projects.md", "expected_keywords": ["DenseNet"]},
+  {"question": "How did he avoid data leakage in the X-ray project?", "expected_source": "projects.md", "expected_keywords": ["patient"]},
+  {"question": "What accuracy did the rock vs mine model get?", "expected_source": "projects.md", "expected_keywords": ["78.6"]},
   {"question": "How was this AI agent built?", "expected_source": "projects.md", "expected_keywords": ["RAG"]},
   {"question": "Has he done any internships?", "expected_source": "experience.md", "expected_keywords": []},
-  {"question": "Any hackathons or awards?", "expected_source": "experience.md", "expected_keywords": []},
-  {"question": "How can I contact Saksham?", "expected_source": "contact.md", "expected_keywords": []},
-  {"question": "Where is his LinkedIn?", "expected_source": "contact.md", "expected_keywords": []},
-  {"question": "Is he open to internships?", "expected_source": "contact.md", "expected_keywords": []},
-  {"question": "What are his hobbies?", "expected_source": "about.md", "expected_keywords": []},
-  {"question": "What are his career goals?", "expected_source": "about.md", "expected_keywords": []},
+  {"question": "How can I contact Saksham?", "expected_source": "contact.md", "expected_keywords": ["github"]},
+  {"question": "Can I leave a message for him?", "expected_source": "contact.md", "expected_keywords": []},
+  {"question": "What are his hobbies?", "expected_source": "about.md", "expected_keywords": ["badminton"]},
+  {"question": "What are his long-term goals?", "expected_source": "about.md", "expected_keywords": ["animals"]},
   {"question": "Why should we hire him?", "expected_source": "faq.md", "expected_keywords": []},
-  {"question": "What is he currently learning?", "expected_source": "faq.md", "expected_keywords": []}
+  {"question": "What is he currently working on?", "expected_source": "faq.md", "expected_keywords": []}
 ]

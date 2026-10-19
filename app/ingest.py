@@ -39,6 +39,10 @@ def chunk_markdown(filename: str, text: str) -> list[Document]:
         chunk.metadata["source"] = filename
         chunk.metadata["section"] = " > ".join(headings) or filename
         chunk.metadata["chunk_id"] = f"{filename}#{i}"
+        # Prefix the heading path so each chunk carries its topic (improves retrieval).
+        breadcrumb = " > ".join(headings)
+        if breadcrumb and not chunk.page_content.startswith(breadcrumb):
+            chunk.page_content = f"{breadcrumb}\n{chunk.page_content}"
     return [c for c in chunks if c.page_content.strip()]
 
 

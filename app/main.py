@@ -3,6 +3,7 @@
 Run locally:
     uvicorn app.main:app --reload
 """
+import logging
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, Request
@@ -16,6 +17,7 @@ from app.rate_limit import RateLimiter
 from app.retriever import get_vector_store, search
 
 limiter = RateLimiter(config.RATE_LIMIT_PER_MINUTE)
+logger = logging.getLogger("uvicorn.error")
 
 
 @asynccontextmanager
@@ -59,7 +61,12 @@ async def chat(req: ChatRequest, request: Request):
         try:
             async for token in stream_answer(req.question.strip(), history):
                 yield token
-        except Exception:
+        except Exception as exc:
+            if "rate_limit" in str(exc).lower() or "429" in str(exc):
+                logger.warning("Groq rate limit hit")
+                yield "I'm getting a lot of questions right now. Please try again in a few seconds."
+                return
+            logger.exception("Chat request failed")
             yield "Sorry, something went wrong on my side. Please try again in a moment."
 
     return StreamingResponse(token_stream(), media_type="text/plain; charset=utf-8")

@@ -18,3 +18,12 @@ local_cache/
 Thumbs.db
 .vscode/
 .idea/
+
+# Local logs
+logs/
+
+# Local Windows helpers / leftovers
+start.bat
+setup.bat
+start.bat.new
+.chroma/

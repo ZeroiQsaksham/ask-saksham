@@ -11,6 +11,7 @@ Add your own questions to eval/questions.json as you fill in the knowledge base.
 import argparse
 import asyncio
 import json
+import re
 from pathlib import Path
 
 from app.retriever import search
@@ -36,7 +37,9 @@ def main(check_answers: bool) -> None:
         keywords = item.get("expected_keywords") or []
         if check_answers and keywords:
             answer = asyncio.run(get_answer(item["question"]))
-            ok = all(k.lower() in answer.lower() for k in keywords)
+            # LLMs often use non-breaking hyphens/spaces; normalise before matching.
+            norm = re.sub(r"[\u2010-\u2015\u2212]", "-", answer).replace("\u00a0", " ").lower()
+            ok = all(k.lower() in norm for k in keywords)
             answer_passes += ok
             answer_total += 1
             line += f"  | answer {'PASS' if ok else 'FAIL'}"

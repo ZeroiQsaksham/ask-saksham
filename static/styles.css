@@ -67,13 +67,15 @@ main { max-width: 960px; margin: 0 auto; padding: 0 20px; }
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
   box-shadow: 0 16px 48px rgba(0,0,0,.35); overflow: hidden;
 }
-.chat[hidden] { display: none; }
+.chat[hidden], .suggestions[hidden] { display: none; }
 .chat-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--border); }
 .chat-sub { display: block; color: var(--muted); font-size: .8rem; }
 .icon-btn { background: none; border: 0; color: var(--muted); font-size: 24px; cursor: pointer; }
 .chat-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
-.msg { max-width: 85%; padding: 10px 14px; border-radius: 12px; white-space: pre-wrap; word-wrap: break-word; font-size: .95rem; }
+.msg { max-width: 85%; padding: 10px 14px; border-radius: 12px; white-space: normal; word-wrap: break-word; font-size: .95rem; }
 .msg.user { align-self: flex-end; background: var(--accent); color: var(--accent-text); border-bottom-right-radius: 4px; }
+.msg.user { white-space: pre-wrap; }
+.msg.bot a { color: var(--accent); word-break: break-all; }
 .msg.bot { align-self: flex-start; background: var(--surface-2); border-bottom-left-radius: 4px; }
 .msg.typing::after { content: "▍"; animation: blink 1s steps(1) infinite; }
 @keyframes blink { 50% { opacity: 0; } }

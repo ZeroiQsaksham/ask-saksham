@@ -5,13 +5,22 @@ from app import config
 from app.ingest import build_vector_store, get_embeddings
 
 
+def _knowledge_fingerprint() -> str:
+    files = sorted(config.KNOWLEDGE_DIR.glob("*.md"))
+    return "|".join(f"{f.name}:{f.stat().st_size}:{int(f.stat().st_mtime)}" for f in files)
+
+
 @lru_cache(maxsize=1)
 def get_vector_store():
     from langchain_chroma import Chroma
 
-    if not config.CHROMA_DIR.exists():
-        # First run (or fresh deploy): build the index automatically.
-        return build_vector_store(reset=True)
+    stamp = config.CHROMA_DIR / "knowledge.stamp"
+    fingerprint = _knowledge_fingerprint()
+    if not config.CHROMA_DIR.exists() or not stamp.exists() or stamp.read_text() != fingerprint:
+        # First run, fresh deploy, or knowledge files changed: (re)build the index.
+        store = build_vector_store(reset=True)
+        stamp.write_text(fingerprint)
+        return store
     return Chroma(
         collection_name=config.COLLECTION_NAME,
         embedding_function=get_embeddings(),

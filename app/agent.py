@@ -16,7 +16,12 @@ def get_llm():
 
     if not config.GROQ_API_KEY:
         raise RuntimeError("GROQ_API_KEY is not set. Copy .env.example to .env and add your key.")
-    llm = ChatGroq(model=config.GROQ_MODEL, api_key=config.GROQ_API_KEY, temperature=0.2)
+    llm = ChatGroq(
+        model=config.GROQ_MODEL,
+        api_key=config.GROQ_API_KEY,
+        temperature=0.2,
+        max_retries=3,  # the Groq client backs off and retries on rate limits (HTTP 429)
+    )
     return llm.bind_tools(TOOLS)
 
 
