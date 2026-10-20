@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Saksham Pandey | Portfolio</title>
-  <meta name="description" content="Saksham's portfolio with a personal AI agent you can ask anything about him." />
-  <link rel="stylesheet" href="/static/styles.css?v=3" />
+  <meta name="description" content="Saksham's portfolio with a personal AI agent you can ask anything about him, plus a Vedic astrology assistant that answers from a textbook." />
+  <link rel="stylesheet" href="/static/styles.css?v=5" />
 </head>
 <body>
   <header class="nav">
@@ -14,6 +14,7 @@
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
+      <a href="#astrologer" data-astro>Astrologer</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
@@ -24,7 +25,8 @@
       <h1>Saksham Pandey</h1>
       <p class="tagline">B.Tech, IIT (ISM) Dhanbad · Data science, machine learning and AI applications.</p>
       <div class="hero-actions">
-        <button class="btn primary" id="open-chat-hero">Ask my AI agent about me</button>
+        <button class="btn primary" data-open-chat="about">Ask my AI agent about me</button>
+        <button class="btn astro-btn" data-open-chat="astro" data-astro>Ask the Astrologer</button>
         <a class="btn" href="#projects">See projects</a>
       </div>
     </section>
@@ -47,7 +49,7 @@
       <div class="cards">
         <article class="card">
           <h3>Ask Saksham: personal AI agent</h3>
-          <p>RAG-based agent that answers questions about me using LangChain, ChromaDB, FastEmbed and an open-weight LLM on Groq, with tool calling and guardrails.</p>
+          <p>RAG-based agent with two modes: it answers questions about me (tool calling over my notes) and, in astrologer mode, answers from a 515-page textbook using hybrid search (BM25 + embeddings) with page citations.</p>
           <a href="https://github.com/ZeroiQsaksham/ask-saksham" target="_blank" rel="noopener">GitHub</a>
         </article>
         <article class="card">
@@ -63,13 +65,26 @@
       </div>
     </section>
 
+    <section id="astrologer" class="section astro-section" data-astro>
+      <h2>Ask Saksham (Astrologer)</h2>
+      <p>A second mode of my AI agent that explains Vedic astrology (Jyotish) strictly from one book:
+        <strong>Vedic Astrology: An Integrated Approach</strong> by P.V.R. Narasimha Rao (shared freely by the author).
+        It searches 1,000+ passages from the book with hybrid search and cites the chapter and page for every answer.</p>
+      <ul class="chips">
+        <li>Rasis &amp; houses</li><li>Planets</li><li>Divisional charts</li><li>Arudha padas</li>
+        <li>Yogas</li><li>Ashtakavarga</li><li>Vimsottari &amp; other dasas</li><li>Transits</li><li>Tajaka</li>
+      </ul>
+      <button class="btn astro-btn" data-open-chat="astro">Ask a question</button>
+      <p class="small">For learning and reflection only, not a substitute for professional advice. It cannot cast personal birth charts.</p>
+    </section>
+
     <section id="contact" class="section">
       <h2>Contact</h2>
       <p><a href="https://www.linkedin.com/in/saksham-pandey-2b7826256/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/ZeroiQsaksham" target="_blank" rel="noopener">GitHub</a> · or leave me a message through the chat assistant.</p>
     </section>
   </main>
 
-  <footer class="footer">Built with FastAPI, LangChain and a lot of curiosity.</footer>
+  <footer class="footer">Built with FastAPI, LangChain and a lot of curiosity. Astrologer mode answers from &ldquo;Vedic Astrology: An Integrated Approach&rdquo; &copy; P.V.R. Narasimha Rao.</footer>
 
   <!-- Chat widget -->
   <button class="chat-launcher" id="chat-launcher" aria-label="Open chat">Ask <span class="agent-name">Saksham</span></button>
@@ -77,23 +92,26 @@
   <div class="chat" id="chat" hidden>
     <div class="chat-header">
       <div>
-        <strong class="agent-name">Saksham</strong>
-        <span class="chat-sub">AI version of me · ask me anything</span>
+        <strong id="chat-title">Saksham</strong>
+        <span class="chat-sub" id="chat-sub">AI version of me · ask me anything</span>
       </div>
       <button class="icon-btn" id="chat-close" aria-label="Close chat">&times;</button>
     </div>
-    <div class="chat-body" id="chat-body"></div>
-    <div class="suggestions" id="suggestions">
-      <button>What are your skills?</button>
-      <button>Tell me about your projects</button>
-      <button>How can I contact you?</button>
+    <div class="mode-tabs" role="tablist" data-astro>
+      <button class="mode-tab" role="tab" data-mode="about" aria-selected="true">About me</button>
+      <button class="mode-tab" role="tab" data-mode="astro" aria-selected="false">Astrologer</button>
     </div>
+    <div class="chat-body" id="chat-body-about"></div>
+    <div class="chat-body" id="chat-body-astro" hidden></div>
+    <p class="chat-note" id="chat-note" hidden></p>
+    <div class="suggestions" id="suggestions-about"></div>
+    <div class="suggestions" id="suggestions-astro" hidden></div>
     <form class="chat-form" id="chat-form">
       <input id="chat-input" type="text" maxlength="1000" placeholder="Type your question..." autocomplete="off" />
       <button class="btn primary" type="submit">Send</button>
     </form>
   </div>
 
-  <script src="/static/app.js?v=3"></script>
+  <script src="/static/app.js?v=5"></script>
 </body>
 </html>

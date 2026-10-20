@@ -5,7 +5,7 @@ if not exist logs mkdir logs
 echo %date% %time% launcher started in %cd% > logs\launcher.log
 if not exist .venv\Scripts\python.exe goto needsetup
 echo %time% checking installed packages... >> logs\launcher.log
-.venv\Scripts\python.exe -c "import uvicorn, fastapi, langchain_groq" >nul 2>&1
+.venv\Scripts\python.exe -c "import uvicorn, fastapi, langchain_groq, pypdf" >nul 2>&1
 if errorlevel 1 goto needsetup
 goto run
 

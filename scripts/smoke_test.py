@@ -7,6 +7,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from app import config
 from app.agent import stream_answer
+from app.astro import stream_astro_answer
 
 QUESTIONS = [
     "What are Saksham's main skills?",
@@ -23,6 +24,9 @@ async def main():
     for q in QUESTIONS:
         answer = "".join([t async for t in stream_answer(q, [])])
         print(f"\nQ: {q}\nA: {answer}")
+    q = "What is Vimsottari dasa? Answer in 2 sentences."
+    answer = "".join([t async for t in stream_astro_answer(q, [])])
+    print(f"\n[astrologer] Q: {q}\nA: {answer}")
 
 
 if __name__ == "__main__":

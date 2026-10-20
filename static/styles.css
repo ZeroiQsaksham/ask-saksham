@@ -88,3 +88,48 @@ main { max-width: 960px; margin: 0 auto; padding: 0 20px; }
   .nav nav a { margin-left: 12px; font-size: .9rem; }
   .chat { right: 16px; bottom: 16px; }
 }
+
+/* ---------- shared ---------- */
+[hidden] { display: none !important; }
+.small { color: var(--muted); font-size: .85rem; }
+
+/* ---------- mode tabs ---------- */
+.mode-tabs { display: flex; gap: 4px; padding: 8px 12px 0; border-bottom: 1px solid var(--border); }
+.mode-tab {
+  flex: 1; background: none; border: 0; border-bottom: 2px solid transparent; color: var(--muted);
+  padding: 8px 6px; font: 600 .9rem system-ui, sans-serif; cursor: pointer;
+}
+.mode-tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); }
+.chat-note { margin: 0; padding: 6px 16px; font-size: .75rem; color: var(--muted); border-top: 1px solid var(--border); }
+
+/* ---------- astrologer theme ---------- */
+:root { --astro: #e0b35a; --astro-deep: #1b1530; --astro-surface: #251d40; --astro-text: #1b1530; }
+.astro-btn { background: linear-gradient(135deg, #3b2b6b, #6b4bb8); border-color: #6b4bb8; color: #fff; }
+.chat.astro { --accent: var(--astro); --accent-text: var(--astro-text); }
+.chat.astro .chat-header {
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,.35) 0 1px, transparent 2px),
+    radial-gradient(circle at 70% 60%, rgba(255,255,255,.25) 0 1px, transparent 2px),
+    radial-gradient(circle at 45% 20%, rgba(255,255,255,.3) 0 1px, transparent 2px),
+    linear-gradient(135deg, #1b1530, #3b2b6b);
+  color: #fff;
+}
+.chat.astro .chat-header .chat-sub, .chat.astro .chat-header .icon-btn { color: #d9cff5; }
+.chat.astro .mode-tab[aria-selected="true"] { border-bottom-color: var(--astro); }
+.chat.astro .msg.bot { background: color-mix(in srgb, var(--astro-surface) 18%, var(--surface-2)); }
+.cite {
+  display: inline-block; margin: 2px 2px 0 0; padding: 1px 8px; border-radius: 999px;
+  font-size: .72rem; line-height: 1.5; color: var(--astro-text); background: var(--astro);
+}
+.astro-section {
+  margin: 0 -20px; padding: 40px 20px; border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 12% 25%, rgba(255,255,255,.25) 0 1px, transparent 2px),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,.2) 0 1px, transparent 2px),
+    radial-gradient(circle at 60% 15%, rgba(255,255,255,.2) 0 1px, transparent 2px),
+    linear-gradient(135deg, #1b1530, #2e2357);
+  color: #f1ecff; border-top: 0;
+}
+.astro-section .chips li { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.18); color: #f1ecff; }
+.astro-section .small { color: #c9bfe8; }
+.astro-section strong { color: var(--astro); }

@@ -11,7 +11,10 @@ Saksham's main projects, from most to least advanced:
 ## Ask Saksham - personal AI agent (this website)
 A RAG-based AI agent that answers visitors' questions about Saksham.
 - Tech: Python, FastAPI, LangChain, Groq (GPT-OSS 120B), ChromaDB, FastEmbed, HTML/CSS/JavaScript.
+- Two modes: "About Saksham" answers questions about Saksham, and "Ask Saksham (Astrologer)" explains Vedic astrology strictly from the 515-page book "Vedic Astrology: An Integrated Approach" by P.V.R. Narasimha Rao, citing chapter and page numbers.
+- Astrologer mode uses hybrid search: BM25 keyword search plus embedding search, merged with Reciprocal Rank Fusion, over about 1,000 passages parsed from the PDF with chapter, section and page metadata.
 - How it works: Markdown knowledge files are split by headings, turned into vector embeddings, stored in ChromaDB and retrieved with semantic search. The LLM uses tool calling to decide when to search the knowledge base, share contact details or save a message for Saksham. Answers stream back token by token, and guardrails keep it from inventing facts.
+- Live demo: https://ask-saksham.onrender.com
 - GitHub: https://github.com/ZeroiQsaksham/ask-saksham
 
 ## Chest X-Ray Multi-Label Diagnosis with DenseNet-121 (PyTorch)

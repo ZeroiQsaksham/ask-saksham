@@ -48,5 +48,7 @@ if errorlevel 1 (
   exit /b 1
 )
 echo PUBLISHED OK >> %LOG%
+REM Reset the message so the next publish does not reuse it
+echo Update knowledge base> logs\commit_message.txt
 echo Published! https://github.com/ZeroiQsaksham/ask-saksham
 pause

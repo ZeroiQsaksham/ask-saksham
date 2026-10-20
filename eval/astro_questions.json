@@ -1,0 +1,20 @@
+[
+  {"question": "What is the total length of the Vimsottari dasa cycle?", "expected_chapters": [16], "expected_keywords": ["120"]},
+  {"question": "How many years does Venus dasa last in Vimsottari?", "expected_chapters": [16], "expected_keywords": ["20"]},
+  {"question": "How long is Sun's Vimsottari dasa?", "expected_chapters": [16], "expected_keywords": ["6"]},
+  {"question": "What is the length of a nakshatra pada?", "expected_chapters": [1], "expected_keywords": ["20'"]},
+  {"question": "Which dasa did Parasara call the most respectable dasa?", "expected_chapters": [24], "expected_keywords": ["Kalachakra"]},
+  {"question": "What does the arudha lagna show?", "expected_chapters": [7, 9], "expected_keywords": ["perceived"]},
+  {"question": "What is Gaja Kesari yoga?", "expected_chapters": [11], "expected_keywords": ["Jupiter", "Moon"]},
+  {"question": "What is argala?", "expected_chapters": [10], "expected_keywords": ["intervention"]},
+  {"question": "Where is the Hora lagna?", "expected_chapters": [5], "expected_keywords": ["Sun"]},
+  {"question": "What does the Atma karaka stand for?", "expected_chapters": [7, 8], "expected_keywords": ["soul"]},
+  {"question": "How is the navamsa chart made?", "expected_chapters": [6], "expected_keywords": ["9"]},
+  {"question": "Which dasa is used for timing spiritual evolution?", "expected_chapters": [1, 15, 21], "expected_keywords": ["Drigdasa"]},
+  {"question": "What is Shoola dasa used for?", "expected_chapters": [23], "expected_keywords": ["death"]},
+  {"question": "What remedies does the book recommend?", "expected_chapters": [34], "expected_keywords": []},
+  {"question": "What ethical rules should a Jyotishi follow?", "expected_chapters": [37, 14], "expected_keywords": []},
+  {"question": "How should an astrologer handle an uncertain birth time?", "expected_chapters": [32], "expected_keywords": []},
+  {"question": "What is a Tajaka annual chart?", "expected_chapters": [27, 28], "expected_keywords": ["Tajaka"]},
+  {"question": "What is the price of gold today?", "expected_chapters": [], "expected_keywords": ["book"]}
+]

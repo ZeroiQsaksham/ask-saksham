@@ -1,9 +1,9 @@
 """Ingestion pipeline: Markdown files -> chunks -> embeddings -> Chroma vector store.
 
-Run manually after editing anything in knowledge/:
+Builds both indexes (knowledge base + astrology book):
     python -m app.ingest
+The server also rebuilds automatically when knowledge/*.md or the book PDF change.
 """
-import shutil
 from pathlib import Path
 
 from langchain_core.documents import Document
@@ -64,23 +64,30 @@ def build_vector_store(reset: bool = True):
     """(Re)build the Chroma index from the knowledge folder."""
     from langchain_chroma import Chroma
 
-    if reset and config.CHROMA_DIR.exists():
-        shutil.rmtree(config.CHROMA_DIR)
-
     docs = build_documents()
     if not docs:
         raise RuntimeError(f"No Markdown files found in {config.KNOWLEDGE_DIR}")
 
-    store = Chroma.from_documents(
-        documents=docs,
-        embedding=get_embeddings(),
+    config.CHROMA_DIR.mkdir(exist_ok=True)
+    store = Chroma(
         collection_name=config.COLLECTION_NAME,
+        embedding_function=get_embeddings(),
         persist_directory=str(config.CHROMA_DIR),
-        ids=[d.metadata["chunk_id"] for d in docs],
     )
+    if reset:
+        store.delete_collection()  # rebuild only this collection; the book's stays intact
+        store = Chroma(
+            collection_name=config.COLLECTION_NAME,
+            embedding_function=get_embeddings(),
+            persist_directory=str(config.CHROMA_DIR),
+        )
+    store.add_documents(docs, ids=[d.metadata["chunk_id"] for d in docs])
     print(f"Indexed {len(docs)} chunks from {config.KNOWLEDGE_DIR.name}/")
     return store
 
 
 if __name__ == "__main__":
-    build_vector_store(reset=True)
+    # Build both indexes and write the "freshness" stamps so the server starts instantly.
+    from app.retriever import ensure_indexes
+
+    ensure_indexes(force=True)

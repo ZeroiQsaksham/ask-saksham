@@ -2,6 +2,7 @@
 
 Writes a full report to logs/setup.log so problems can be diagnosed.
 """
+import os
 import platform
 import subprocess
 import sys
@@ -30,7 +31,8 @@ def step(name, fn):
 
 
 def run(cmd):
-    p = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace")
+    env = {**os.environ, "PYTHONIOENCODING": "utf-8"}  # Windows consoles can't print some Unicode
+    p = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace", env=env)
     log(p.stdout[-6000:])
     if p.stderr.strip():
         log("STDERR:\n" + p.stderr[-6000:])
@@ -58,7 +60,8 @@ def main():
         return
     step("import app modules", lambda: run([sys.executable, "-c", "import app.main; print('imports fine')"]))
     step("build index (python -m app.ingest)", lambda: run([sys.executable, "-m", "app.ingest"]))
-    step("retrieval evaluation", lambda: run([sys.executable, "-m", "eval.run_eval"]))
+    step("retrieval evaluation (about mode)", lambda: run([sys.executable, "-m", "eval.run_eval"]))
+    step("retrieval evaluation (astrologer mode)", lambda: run([sys.executable, "-m", "eval.run_eval", "--mode", "astro"]))
     step("agent smoke test (needs GROQ_API_KEY in .env)", lambda: run([sys.executable, "scripts/smoke_test.py"]))
     log("\nSETUP FINISHED")
 
