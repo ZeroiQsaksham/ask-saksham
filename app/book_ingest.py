@@ -141,8 +141,8 @@ def build_book_store():
         Document(page_content=search_text(c), metadata={"chunk_index": i, "citation": c["citation"]})
         for i, c in enumerate(chunks)
     ]
-    for start in range(0, len(docs), 128):  # batches keep memory low on small servers
-        batch = docs[start : start + 128]
+    for start in range(0, len(docs), 64):  # small batches keep memory low on 512 MB servers
+        batch = docs[start : start + 64]
         store.add_documents(batch, ids=[chunks[d.metadata["chunk_index"]]["id"] for d in batch])
     print(f"Indexed {len(chunks)} passages from {config.ASTRO_PDF.name}")
     return store

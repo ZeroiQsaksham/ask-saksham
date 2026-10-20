@@ -4,6 +4,7 @@ Builds both indexes (knowledge base + astrology book):
     python -m app.ingest
 The server also rebuilds automatically when knowledge/*.md or the book PDF change.
 """
+from functools import lru_cache
 from pathlib import Path
 
 from langchain_core.documents import Document
@@ -53,11 +54,16 @@ def build_documents() -> list[Document]:
     return docs
 
 
+@lru_cache(maxsize=1)
 def get_embeddings():
-    # FastEmbed runs a small ONNX model locally: free, no API key, no PyTorch.
+    """One shared embedding model for the whole process (each copy costs 100+ MB of RAM).
+
+    FastEmbed runs a small ONNX model locally: free, no API key, no PyTorch. A small batch size
+    keeps peak memory low while indexing the book on a 512 MB server.
+    """
     from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
 
-    return FastEmbedEmbeddings(model_name=config.EMBEDDING_MODEL)
+    return FastEmbedEmbeddings(model_name=config.EMBEDDING_MODEL, batch_size=32)
 
 
 def build_vector_store(reset: bool = True):
